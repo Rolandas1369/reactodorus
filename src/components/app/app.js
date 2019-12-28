@@ -1,33 +1,72 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
-import ItemStatusFilter from "../item-status-filter"
+import ItemStatusFilter from "../item-status-filter";
+import ItemAddForm from '../item-add-form';
 
 import './app.css';
 
 
 
-const App = () => {
+export default class App extends Component {
 
-    const todoData = [
-        { label: 'Drink Coffe', important: false, id:1  },
-        { label: 'Lear', important: true, id: 2 },
-        { label: 'Sossme', important: false, id: 3 }
-    ];
+    maxId = 100;
 
-    return (
-        <div className="todo-app">
-            <AppHeader todo={1} done={3} />
-            <div className="top-panel d-flex">
-                <SearchPanel />
-                <ItemStatusFilter />
-            </div>
-            <TodoList todos={ todoData }/>
+    state = {
+        todoData: [
+            { label: 'Drink Coffe', important: false, id:1  },
+            { label: 'Lear', important: true, id: 2 },
+            { label: 'Sossme', important: false, id: 3 }
+        ]
+    };
+
+    deleteItem = (id) => {
+        this.setState(({todoData}) => {
+            const indx = todoData.findIndex((el) => el.id === id);
+            const newArray = [
+                ...todoData.slice(0, indx), 
+                ...todoData.slice(indx + 1)];
+            return {
+                todoData: newArray
+            };
+        });
+    };
+
+    addItem = (text) => {
+
+        const newItem = {
+            label: text,
+            important: false,
+            id: this.maxId++
+        }
+
+        this.setState(({todoData}) => {
             
-        </div>  
-    );
-};
+            
 
-export default App;
+            const newArray = [...todoData, newItem];
+            return {
+                todoData: newArray
+            };
+        });
+    };
+
+    render() {
+        return (
+            <div className="todo-app">
+                <AppHeader todo={1} done={3} />
+                <div className="top-panel d-flex">
+                    <SearchPanel />
+                    <ItemStatusFilter />
+                </div>
+                <TodoList todos={ this.state.todoData }
+                onDeleted={ this.deleteItem }/>
+                <ItemAddForm 
+                onItemAdded={ this.addItem }/>
+                
+            </div> 
+        );
+    }
+};
