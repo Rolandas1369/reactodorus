@@ -10,6 +10,8 @@ npm start
 Project will be on localhost:3000
 
 In this project:
-Add todo item, delete todo item, change importance of todo item by adding important value to item, strike out item by adding class to css
+Add todo item, delete todo item, change importance of todo 
+item by adding important value to item, strike out item by 
+adding class to css
 
 </pre>
