@@ -8,7 +8,6 @@ export default class SearchPanel extends Component {
         term: ''
     };
     
-
     onSearchChange = (e) => {
         const term = e.target.value;
         this.setState({
@@ -18,8 +17,6 @@ export default class SearchPanel extends Component {
     };
 
     render () {
-
-        
 
         return (
         

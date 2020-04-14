@@ -7,7 +7,6 @@ const TodoList = ({ todos, onDeleted,
                     onToggleImportant, 
                     onToggleDone }) => {
 
-    // ...itmeProps = item.label item.important
     const elements = todos.map((item) => {
         const { id, ...itemProps } = item;
         return (
